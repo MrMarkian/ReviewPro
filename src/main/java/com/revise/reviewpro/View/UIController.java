@@ -3,6 +3,7 @@ package com.revise.reviewpro.View;
 import com.revise.reviewpro.Data.Grading;
 import com.revise.reviewpro.Data.Note;
 import com.revise.reviewpro.Data.NotebookController;
+import com.revise.reviewpro.Data.Question;
 import com.revise.reviewpro.ReviewApp;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -12,7 +13,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -25,6 +29,9 @@ public class UIController extends Application {
 
     @FXML
     private ListView<Note> NoteList;
+
+    @FXML
+    private ListView<Question> QuestionList;
 
     @FXML
     private HTMLEditor NoteEditor;
@@ -74,6 +81,11 @@ public class UIController extends Application {
 
 
     @FXML
+    void NewNoteButtonClick(ActionEvent event){
+
+    }
+
+    @FXML
     void LoadNoteBookMenuClick(ActionEvent event) throws IOException, ClassNotFoundException {
 
         FileChooser openFileDialog = new FileChooser();
@@ -119,6 +131,11 @@ public class UIController extends Application {
         {
             SaveButton.setText("New Note");
         }
+
+
+        WebView webview = (WebView) NoteEditor.lookup("WebView");
+        GridPane.setHgrow(webview, Priority.ALWAYS);
+        GridPane.setVgrow(webview, Priority.ALWAYS);
     }
 
     @Override
