@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.HTMLEditor?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revise.reviewpro.View.UIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revise.reviewpro.View.MainUIController">
    <children>
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="275.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -30,8 +30,15 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#SaveNoteBookMenuClick" text="Save Notebook" />
               <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="New">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#NewNoteMenuClicked" text="Note" />
+                  <MenuItem mnemonicParsing="false" onAction="#NewQuestionMenuClicked" text="Question" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#ClearListUIClick" text="Clear List" />
@@ -57,6 +64,7 @@
                         <ButtonBar>
                           <buttons>
                             <Button fx:id="NewNoteButton" mnemonicParsing="false" onAction="#NewNoteButtonClick" text="New Note" textAlignment="CENTER" />
+                              <Button mnemonicParsing="false" onAction="#NewQuestionMenuClicked" text="New Question" />
                           </buttons>
                            <VBox.margin>
                               <Insets left="5.0" right="5.0" top="5.0" />
