@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.revise.reviewpro.View.SceneHandler.SwitchScenes;
 
@@ -109,6 +110,37 @@ public class MainUIController extends Application {
             if(file != null) {
                 NotebookController.SaveNoteBook(DataInterface.allnotes.stream().toList(), file);
             }
+    }
+
+    @FXML
+    void EncryptNoteBookMenuClick(ActionEvent event){
+        PasswordDialog pd = new PasswordDialog();
+        Optional<String> result = pd.showAndWait();
+            if(result.isPresent()){
+                NotebookController.EncodeNoteBook(result.toString());
+                NoteList.refresh();
+                RefreshUI();
+            }
+    }
+
+    @FXML
+    void DecryptNoteBookMenuClick(ActionEvent event){
+        PasswordDialog pd = new PasswordDialog();
+        Optional<String> result = pd.showAndWait();
+        if(result.isPresent()){
+            NotebookController.DecodeNoteBook(result.toString());
+            NoteList.refresh();
+            RefreshUI();
+        }
+    }
+
+    private void RefreshUI(){
+        Note t1 = NoteList.getSelectionModel().getSelectedItem();
+        TitleInput.setText(t1.getTitle());
+        NoteEditor.setHtmlText(t1.getMainText());
+        CompleteChecked.setSelected(t1.isComplete());
+        reviewDateCalender.setValue(t1.getReviewDate());
+        GradingCombo.setValue(t1.getGrade());
     }
 
     @FXML

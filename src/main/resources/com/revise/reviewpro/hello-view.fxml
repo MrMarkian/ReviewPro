@@ -45,6 +45,13 @@
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Security">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#EncryptNoteBookMenuClick" text="Encrypt NoteBook" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#DecryptNoteBookMenuClick" text="Decrypt NoteBook" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
