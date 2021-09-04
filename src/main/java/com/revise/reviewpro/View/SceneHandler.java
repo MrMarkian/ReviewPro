@@ -13,22 +13,24 @@ import java.util.Objects;
 
 public class SceneHandler {
 
+    static Stage Localstage;
+
     public static void ShowStage(Stage stage) throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(ReviewApp.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 600, 800);
+        Localstage = stage;
 
-        stage.setTitle("RevisionPro!");
-        stage.setMinWidth(600);
-        stage.setMinHeight(800);
-        stage.setScene(scene);
-        stage.show();
+        Localstage.setTitle("RevisionPro!");
+        Localstage.setMinWidth(600);
+        Localstage.setMinHeight(800);
+        Localstage.setScene(scene);
+        Localstage.show();
     }
-    public static void SwitchScenes(Event event, FormWindows windows) throws IOException {
-        Stage stage;
+    public static void SwitchScenes(FormWindows windows) throws IOException {
+
         Parent root;
 
-        stage=(Stage) ((Control)(event.getSource())).getScene().getWindow();
 
         switch (windows){
             case Main -> {
@@ -48,7 +50,12 @@ public class SceneHandler {
         }
 
         Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        Localstage.setMinWidth(600);
+        Localstage.setMinHeight(800);
+        Localstage.setScene(scene);
+        Localstage.show();
     }
+
+
+
 }

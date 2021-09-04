@@ -1,5 +1,6 @@
 package com.revise.reviewpro.View;
 
+import com.revise.reviewpro.Data.Question;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,13 +31,14 @@ public class NewQuestionUIController extends Application {
         alert.showAndWait().ifPresent(rs -> {
             if (rs == ButtonType.OK) {
                 System.out.println("Pressed OK.");
+
             }
         });
     }
 
     @FXML
     void CancelButtonClicked (ActionEvent actionEvent) throws IOException {
-        SceneHandler.SwitchScenes(actionEvent,FormWindows.Main);
+        SceneHandler.SwitchScenes(FormWindows.Main);
     }
 
 

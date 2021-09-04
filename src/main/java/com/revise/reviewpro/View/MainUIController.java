@@ -73,7 +73,7 @@ public class MainUIController extends Application {
 
     @FXML
     void NewNoteButtonClick(ActionEvent event) throws IOException {
-        SwitchScenes(event, FormWindows.NewNote);
+        SwitchScenes(FormWindows.NewNote);
     }
 
     @FXML
@@ -93,12 +93,12 @@ public class MainUIController extends Application {
 
     @FXML
     void NewNoteMenuClicked(ActionEvent actionEvent) throws IOException {
-        SwitchScenes(actionEvent,FormWindows.NewNote);
+        SwitchScenes(FormWindows.NewNote);
     }
 
     @FXML
     void NewQuestionMenuClicked(ActionEvent actionEvent) throws IOException {
-        SwitchScenes(actionEvent,FormWindows.Question);
+        SwitchScenes(FormWindows.Question);
     }
 
     @FXML

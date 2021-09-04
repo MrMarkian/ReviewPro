@@ -2,7 +2,6 @@ package com.revise.reviewpro.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Note implements Serializable {
 

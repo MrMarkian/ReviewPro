@@ -6,9 +6,6 @@ import javafx.stage.Stage;
 
 public class ReviewApp extends Application {
 
-    public ReviewApp() {
-    }
-
     @Override
     public void start(Stage stage) {
 
