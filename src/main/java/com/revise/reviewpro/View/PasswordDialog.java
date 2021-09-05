@@ -11,7 +11,7 @@ import javafx.scene.layout.Priority;
 
 public class PasswordDialog extends Dialog<String> {
 
-    private PasswordField passwordField;
+    private final PasswordField passwordField;
 
     public PasswordDialog() {
         setTitle("Password");
@@ -31,7 +31,7 @@ public class PasswordDialog extends Dialog<String> {
 
         getDialogPane().setContent(hBox);
 
-        Platform.runLater(() -> passwordField.requestFocus());
+        Platform.runLater(passwordField::requestFocus);
 
         setResultConverter(dialogButton -> {
             if (dialogButton == passwordButtonType) {

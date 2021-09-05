@@ -12,10 +12,10 @@ public class Note implements Serializable {
     private String title;
     private boolean complete;
 
-    public Note(Grading grade, String mainText, LocalDate entrydate, String title) {
+    public Note(Grading grade, String mainText, LocalDate entryDate, String title) {
         this.grade = grade;
         MainText = mainText;
-        this.ReviewDate = entrydate;
+        this.ReviewDate = entryDate;
         this.title = title;
     }
 
@@ -24,13 +24,7 @@ public class Note implements Serializable {
         return this.title + " - " + grade.toString() + " - " + this.ReviewDate.toString();
     }
 
-    public int getID() {
-        return ID;
-    }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
 
     public Grading getGrade() {
         return grade;

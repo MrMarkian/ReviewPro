@@ -9,14 +9,12 @@
 <?import javafx.scene.web.HTMLEditor?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revise.reviewpro.View.NewNoteUIController">
-   <children>
-      <HTMLEditor fx:id="MainTextInputHTML" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="9.0" layoutY="49.0" prefHeight="457.0" prefWidth="777.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
-      <TextField fx:id="TitleTextInput" layoutX="111.0" layoutY="14.0" prefHeight="25.0" prefWidth="675.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
-      <DatePicker fx:id="ReviewDateInput" layoutX="508.0" layoutY="516.0" prefHeight="25.0" prefWidth="278.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="15.0" />
-      <Label layoutX="27.0" layoutY="18.0" prefHeight="17.0" prefWidth="63.0" text="Title" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
-      <ComboBox layoutX="102.0" layoutY="516.0" prefHeight="25.0" prefWidth="173.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="100.0" />
-      <Button layoutX="629.0" layoutY="554.0" mnemonicParsing="false" onAction="#SaveButtonClicked" prefHeight="25.0" prefWidth="157.0" text="Save" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="15.0" />
-      <Button layoutX="22.0" layoutY="554.0" mnemonicParsing="false" onAction="#CancelButtonClicked" prefHeight="25.0" prefWidth="73.0" text="Cancel" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
-      <Label layoutX="27.0" layoutY="520.0" prefHeight="17.0" prefWidth="79.0" text="Grading" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="25.0" />
-   </children>
+   <HTMLEditor fx:id="MainTextInputHTML" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="9.0" layoutY="49.0" prefHeight="457.0" prefWidth="777.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+   <TextField fx:id="TitleTextInput" layoutX="111.0" layoutY="14.0" prefHeight="25.0" prefWidth="675.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+   <DatePicker fx:id="ReviewDateInput" layoutX="508.0" layoutY="516.0" prefHeight="25.0" prefWidth="278.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="15.0" />
+   <Label layoutX="27.0" layoutY="18.0" prefHeight="17.0" prefWidth="63.0" text="Title" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
+   <ComboBox fx:id="GradingCombo" layoutX="102.0" layoutY="516.0" prefHeight="25.0" prefWidth="173.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="100.0" />
+   <Button layoutX="629.0" layoutY="554.0" mnemonicParsing="false" onAction="#SaveButtonClicked" prefHeight="25.0" prefWidth="157.0" text="Save" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="15.0" />
+   <Button layoutX="22.0" layoutY="554.0" mnemonicParsing="false" onAction="#CancelButtonClicked" prefHeight="25.0" prefWidth="73.0" text="Cancel" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+   <Label layoutX="27.0" layoutY="520.0" prefHeight="17.0" prefWidth="79.0" text="Grading" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="25.0" />
 </AnchorPane>

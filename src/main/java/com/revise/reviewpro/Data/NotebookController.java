@@ -1,6 +1,8 @@
 package com.revise.reviewpro.Data;
 
 import com.revise.reviewpro.View.DataInterface;
+import javafx.collections.FXCollections;
+import javafx.scene.control.Alert;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -16,21 +18,21 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
+
 
 
 public class NotebookController {
 
-    public static List<Note> currentNoteBook;
-    public static String filePathofNoteBook;
+    public static String PathOfNoteBook;
 
-    public static void SaveNoteBook(List<Note> NoteBooktoSave, File fileHandle) throws IOException {
+    public static void SaveNoteBook(File fileHandle) throws IOException {
 
         FileOutputStream fileOutputStream = new FileOutputStream(fileHandle);
         ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
 
         try {
-            outputStream.writeObject(NoteBooktoSave);
+            outputStream.writeObject(DataInterface.allNotes.stream().toList());
+            outputStream.writeObject(DataInterface.allQuestions.stream().toList());
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -40,62 +42,50 @@ public class NotebookController {
 
     }
 
-    public static String getFilePathofNoteBook() {
-        return filePathofNoteBook;
-    }
 
-    public static void setFilePathofNoteBook(String newPath) {
-        filePathofNoteBook = newPath;
-    }
-
-    public static List<Note> getCurrentNoteBook() {
-        return currentNoteBook;
-    }
-
-    public static void setCurrentNoteBook(List<Note> currentNoteBook) {
-        NotebookController.currentNoteBook = currentNoteBook;
-    }
-
-    public static List<Note> LoadNoteBook (File FilePath) {
+    public static void LoadNoteBook (File FilePath) {
         try {
 
             FileInputStream fileInputStream = new FileInputStream(FilePath);
             ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);
 
-            List<Note> loadedNotes = (List<Note>)inputStream.readObject();
-            currentNoteBook = loadedNotes;
-            filePathofNoteBook = FilePath.getAbsolutePath();
-               for(Note note : loadedNotes){
-                   System.out.println(note.getMainText());
-               }
-            System.out.println(EncryptionHandler.encrypt("Bollocks","Manic"));
-            return loadedNotes;
+            List<Note> tmpList = (List<Note>)inputStream.readObject();
+            DataInterface.AddAllNotesFromList(tmpList);
+
+            List<Question> tmpQuestions = (List<Question>)inputStream.readObject();
+            DataInterface.AddAllQuestionsFromList(tmpQuestions);
+            PathOfNoteBook = FilePath.getAbsoluteFile().toString();
+
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
 
-        return null;
     }
 
     public static void EncodeNoteBook(String password){
-        for (Note note: DataInterface.allnotes) {
+        for (Note note: DataInterface.allNotes) {
             note.setMainText(EncryptionHandler.encrypt(note.getMainText(),password));
             note.setTitle(EncryptionHandler.encrypt(note.getTitle(),password));
+        }
+
+        for (Question question : DataInterface.allQuestions){
+            question.setQuestionText(EncryptionHandler.encrypt(question.getQuestionText(),password));
 
         }
     }
 
     public static void DecodeNoteBook(String password){
-        for(Note note : DataInterface.allnotes){
+        for(Note note : DataInterface.allNotes){
             note.setMainText(EncryptionHandler.decrypt(note.getMainText(),password));
             note.setTitle(EncryptionHandler.decrypt(note.getTitle(),password));
 
         }
+
+        for (Question question : DataInterface.allQuestions){
+            question.setQuestionText(EncryptionHandler.decrypt(question.getQuestionText(),password));
+
+        }
     }
-
-
-
-
 
 
 
@@ -109,10 +99,12 @@ public class NotebookController {
 
                 byte[] encrypted = cipher.doFinal(text.getBytes(StandardCharsets.UTF_8));
                 byte[] encoded = Base64.getEncoder().encode(encrypted);
-                System.out.println(Arrays.toString(encoded));
+
                 return new String(encoded, StandardCharsets.UTF_8);
 
             } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage());
+                alert.show();
                 throw new RuntimeException("Cannot encrypt", e);
             }
         }
@@ -126,10 +118,12 @@ public class NotebookController {
 
                 byte[] decoded = Base64.getDecoder().decode(text.getBytes(StandardCharsets.UTF_8));
                 byte[] decrypted = cipher.doFinal(decoded);
-                System.out.println(decrypted);
+
                 return new String(decrypted, StandardCharsets.UTF_8);
 
             } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage());
+                alert.show();
                 throw new RuntimeException("Cannot decrypt", e);
             }
         }

@@ -1,12 +1,9 @@
 package com.revise.reviewpro.Data;
 
-import javafx.scene.Group;
-
-import java.time.LocalDateTime;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Locale;
 
-public class Question {
+public class Question implements Serializable {
 
     private String QuestionText;
     private String correctAnswer;
@@ -14,8 +11,13 @@ public class Question {
     private List<String> possibleAnswers;
     private AnswerType answerType;
 
-    private Boolean timed;
-    private LocalDateTime answerTime;
+
+    public Question(String questionText, String correctAnswer, List<String> possibleAnswers, AnswerType answerType) {
+        QuestionText = questionText;
+        this.correctAnswer = correctAnswer;
+        this.possibleAnswers = possibleAnswers;
+        this.answerType = answerType;
+      }
 
     public String getQuestionText() {
         return QuestionText;
@@ -49,25 +51,13 @@ public class Question {
         this.answerType = answerType;
     }
 
-    public Boolean getTimed() {
-        return timed;
-    }
-
-    public void setTimed(Boolean timed) {
-        this.timed = timed;
-    }
-
-    public LocalDateTime getAnswerTime() {
-        return answerTime;
-    }
-
-    public void setAnswerTime(LocalDateTime answerTime) {
-        this.answerTime = answerTime;
-    }
-
-    public Group RenderQuestionUI (){
-        //todo: Add question renderer
-        return new Group();
-
+    @Override
+    public String toString() {
+        String Result = QuestionText ;
+        if (answerType == AnswerType.SingleAnswer)
+            Result += " - Single";
+        if (answerType == AnswerType.MultipleChoice)
+            Result += " - Multi";
+        return Result;
     }
 }

@@ -21,89 +21,88 @@
 <?import javafx.scene.web.HTMLEditor?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revise.reviewpro.View.MainUIController">
-   <children>
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="275.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <menus>
+    <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="275.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <menus>
           <Menu mnemonicParsing="false" text="File">
-            <items>
+              <items>
                   <MenuItem mnemonicParsing="false" onAction="#LoadNoteBookMenuClick" text="Load Notebook" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#SaveNoteBookMenuClick" text="Save Notebook" />
-              <MenuItem mnemonicParsing="false" text="Close" />
-                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
-            </items>
+                  <MenuItem mnemonicParsing="false" onAction="#CloseMenuClicked" text="Close" />
+              </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="New">
+          <Menu mnemonicParsing="false" text="New">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#NewNoteMenuClicked" text="Note" />
+                  <MenuItem mnemonicParsing="false" onAction="#NewNoteMenuClicked" text="Note" />
                   <MenuItem mnemonicParsing="false" onAction="#NewQuestionMenuClicked" text="Question" />
               </items>
-            </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#ClearListUIClick" text="Clear List" />
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Security">
+          <Menu mnemonicParsing="false" text="Edit">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#EncryptNoteBookMenuClick" text="Encrypt NoteBook" />
+                  <MenuItem mnemonicParsing="false" onAction="#ClearListUIClick" text="Clear List" />
+                  <MenuItem mnemonicParsing="false" text="Delete" />
+              </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Security">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#EncryptNoteBookMenuClick" text="Encrypt NoteBook" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#DecryptNoteBookMenuClick" text="Decrypt NoteBook" />
               </items>
-            </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
           </Menu>
-        </menus>
-         <opaqueInsets>
-            <Insets bottom="20.0" />
-         </opaqueInsets>
-      </MenuBar>
-      <SplitPane dividerPositions="0.40301003344481606" layoutX="7.0" layoutY="25.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
-        <items>
+          <Menu mnemonicParsing="false" text="Help">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+              </items>
+          </Menu>
+      </menus>
+        <opaqueInsets>
+          <Insets bottom="20.0" />
+        </opaqueInsets>
+    </MenuBar>
+    <SplitPane fx:id="MainSplitPane" dividerPositions="0.40301003344481606" layoutX="7.0" layoutY="25.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+      <items>
           <AnchorPane>
-               <children>
+              <children>
                   <VBox layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                     <children>
-                        <ButtonBar>
-                          <buttons>
-                            <Button fx:id="NewNoteButton" mnemonicParsing="false" onAction="#NewNoteButtonClick" text="New Note" textAlignment="CENTER" />
-                              <Button mnemonicParsing="false" onAction="#NewQuestionMenuClicked" text="New Question" />
-                          </buttons>
-                           <VBox.margin>
-                              <Insets left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                        </ButtonBar>
-                        <Accordion VBox.vgrow="ALWAYS">
-                          <panes>
-                            <TitledPane animated="false" text="Notes">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0">
-                                       <children>
-                                          <ListView fx:id="NoteList" onMouseClicked="#ShowNoteFromList" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </TitledPane>
-                            <TitledPane animated="false" text="Questions">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <ListView fx:id="QuestionList" layoutY="7.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                       </children></AnchorPane>
-                              </content>
-                            </TitledPane>
-                          </panes>
-                        </Accordion>
-                     </children>
+                      <children>
+                          <ButtonBar>
+                              <buttons>
+                                  <Button fx:id="NewNoteButton" mnemonicParsing="false" onAction="#NewNoteButtonClick" text="New Note" textAlignment="CENTER" />
+                                  <Button mnemonicParsing="false" onAction="#NewQuestionMenuClicked" text="New Question" />
+                              </buttons>
+                              <VBox.margin>
+                                  <Insets left="5.0" right="5.0" top="5.0" />
+                              </VBox.margin>
+                          </ButtonBar>
+                          <Accordion fx:id="AccordianDividers" VBox.vgrow="ALWAYS">
+                              <panes>
+                                  <TitledPane fx:id="NotesPane" animated="false" text="Notes">
+                                      <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0">
+                                              <children>
+                                                  <ListView fx:id="NoteList" onMouseClicked="#ShowNoteFromList" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                              </children>
+                                          </AnchorPane>
+                                      </content>
+                                  </TitledPane>
+                                  <TitledPane fx:id="QuestionPane" animated="false" text="Questions">
+                                      <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                              <children>
+                                                  <ListView fx:id="QuestionList" layoutY="7.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                              </children>
+                                          </AnchorPane>
+                                      </content>
+                                  </TitledPane>
+                              </panes>
+                          </Accordion>
+                      </children>
                   </VBox>
-               </children>
-            </AnchorPane>
-          <AnchorPane>
-               <children>
+              </children>
+          </AnchorPane>
+          <AnchorPane fx:id="ViewAnchorPane">
+              <children>
                   <HTMLEditor fx:id="NoteEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <TextField fx:id="TitleInput" layoutX="52.0" layoutY="445.0" prefHeight="25.0" prefWidth="286.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="16.0" />
                   <Button fx:id="SaveButton" layoutX="264.0" layoutY="284.0" mnemonicParsing="false" onAction="#SaveButtonClicked" prefHeight="25.0" prefWidth="76.0" text="Save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
@@ -113,9 +112,8 @@
                   <DatePicker fx:id="reviewDateCalender" layoutX="187.0" layoutY="503.0" prefHeight="25.0" prefWidth="180.0" promptText="Pick a Review Date" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="100.0" />
                   <Label layoutX="200.0" layoutY="486.0" prefHeight="17.0" prefWidth="96.0" text="Review By Date" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="140.0" />
                   <CheckBox fx:id="CompleteChecked" layoutX="384.0" layoutY="478.0" mnemonicParsing="false" onAction="#CompleteClicked" text="Complete" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="20.0" />
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-   </children>
+              </children>
+          </AnchorPane>
+      </items>
+    </SplitPane>
 </AnchorPane>
