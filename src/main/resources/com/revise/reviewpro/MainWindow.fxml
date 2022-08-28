@@ -43,6 +43,12 @@
                   <MenuItem mnemonicParsing="false" text="Delete" />
               </items>
           </Menu>
+         <Menu mnemonicParsing="false" text="Themes">
+           <items>
+               <MenuItem fx:id="BootstrapClicked" mnemonicParsing="false" onAction="#onBootstrapClicked" text="BootStrap" />
+             <MenuItem mnemonicParsing="false" onAction="#DarkThemeMenuClicked" text="Dark" />
+           </items>
+         </Menu>
           <Menu mnemonicParsing="false" text="Security">
               <items>
                   <MenuItem mnemonicParsing="false" onAction="#EncryptNoteBookMenuClick" text="Encrypt NoteBook" />

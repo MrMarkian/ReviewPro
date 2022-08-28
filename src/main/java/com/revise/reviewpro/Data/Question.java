@@ -6,15 +6,14 @@ import java.util.List;
 public class Question implements Serializable {
 
     private String QuestionText;
-    private String correctAnswer;
-
+    private String correctSingleAnswer;
+    private List<String> correctMultiAnswers;
     private List<String> possibleAnswers;
     private AnswerType answerType;
 
-
-    public Question(String questionText, String correctAnswer, List<String> possibleAnswers, AnswerType answerType) {
+    public Question(String questionText, String correctSingleAnswer, List<String> possibleAnswers, AnswerType answerType) {
         QuestionText = questionText;
-        this.correctAnswer = correctAnswer;
+        this.correctSingleAnswer = correctSingleAnswer;
         this.possibleAnswers = possibleAnswers;
         this.answerType = answerType;
       }
@@ -27,12 +26,12 @@ public class Question implements Serializable {
         QuestionText = questionText;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
+    public String getCorrectSingleAnswer() {
+        return correctSingleAnswer;
     }
 
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public void setCorrectSingleAnswer(String correctSingleAnswer) {
+        this.correctSingleAnswer = correctSingleAnswer;
     }
 
     public List<String> getPossibleAnswers() {
@@ -50,6 +49,23 @@ public class Question implements Serializable {
     public void setAnswerType(AnswerType answerType) {
         this.answerType = answerType;
     }
+
+
+    public boolean ValidateSingleAnswerQuestion(Object answers){
+        switch (this.answerType){
+            case SingleAnswer ->{
+                return correctSingleAnswer.equalsIgnoreCase((String) answers);
+            }
+
+            case MultipleChoice -> {
+                return correctMultiAnswers.equals(answers);
+            }
+            default -> {
+                return false;
+            }
+        }
+    }
+
 
     @Override
     public String toString() {

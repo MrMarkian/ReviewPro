@@ -1,6 +1,5 @@
 package com.revise.reviewpro.View;
 
-
 import com.revise.reviewpro.Data.AnswerType;
 import com.revise.reviewpro.Data.Question;
 import javafx.application.Application;
@@ -16,38 +15,25 @@ import java.util.Objects;
 public class NewQuestionUIController extends Application {
     @FXML
     private TextArea QuestionInput;
-
     @FXML
     private TextArea AnswerInput;
-
     @FXML
     private TextArea MultiQuestionInput;
-
     @FXML
-    TextArea MultiAnswerInput;
-
+    private TextArea MultiAnswerInput;
     @FXML
-    ListView<String> MultiAnswerList;
-
+    private ListView<String> MultiAnswerList;
     @FXML
-    Button SaveButton;
-
+    private Button SaveButton;
     @FXML
-    Button cancelButton;
-
+    private Button cancelButton;
     @FXML
-    TabPane AnswerTypeTabPane;
-
+    private TabPane AnswerTypeTabPane;
     @FXML
-    TitledPane NotesPane;
-
+    private TitledPane NotesPane;
     @FXML
-    TitledPane QuestionPane;
-
+    private TitledPane QuestionPane;
     Question currentQuestion;
-
-
-
 
     public NewQuestionUIController() {}
 
@@ -70,11 +56,10 @@ public class NewQuestionUIController extends Application {
     private void ValidateQuestion() {
         switch (currentQuestion.getAnswerType()){
             case SingleAnswer -> {
-                if(AnswerInput.getText().equalsIgnoreCase(currentQuestion.getCorrectAnswer())){
+                if(currentQuestion.ValidateSingleAnswerQuestion(AnswerInput.getText())){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "You guessed Corrrectly");
                     alert.setTitle("Party Time!");
                     alert.show();
-
                 }
                 else
                 {
@@ -112,26 +97,21 @@ public class NewQuestionUIController extends Application {
             case "Single Answer Question" -> {
                 System.out.println("Single Answer");
                 Question questionToSave = new Question(QuestionInput.getText(), AnswerInput.getText(), null, AnswerType.SingleAnswer);
-                DataInterface.allQuestions.add(questionToSave);
+                DataRepository.allQuestions.add(questionToSave);
                 SceneHandler.SwitchScenes(FormWindows.Main);
             }
             case "Multiple Choice" -> {
                 System.out.println("Multi Choice");
                 Question multiQuestionToSave = new Question(MultiQuestionInput.getText(), AnswerInput.getText(), MultiAnswerList.getItems().stream().toList(), AnswerType.MultipleChoice);
-                DataInterface.allQuestions.add(multiQuestionToSave);
+                DataRepository.allQuestions.add(multiQuestionToSave);
                 SceneHandler.SwitchScenes(FormWindows.Main);
             }
             default -> throw new IllegalStateException("Unexpected value: " + AnswerTypeTabPane.getSelectionModel().getSelectedItem().getText());
         }
-
     }
-
-
 
     @FXML
     void CancelButtonClicked (ActionEvent actionEvent) throws IOException {
         SceneHandler.SwitchScenes(FormWindows.Main);
     }
-
-
 }

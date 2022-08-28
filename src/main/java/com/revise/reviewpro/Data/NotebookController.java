@@ -1,7 +1,6 @@
 package com.revise.reviewpro.Data;
 
-import com.revise.reviewpro.View.DataInterface;
-import javafx.collections.FXCollections;
+import com.revise.reviewpro.View.DataRepository;
 import javafx.scene.control.Alert;
 
 import javax.crypto.BadPaddingException;
@@ -15,7 +14,6 @@ import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -31,8 +29,8 @@ public class NotebookController {
         ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
 
         try {
-            outputStream.writeObject(DataInterface.allNotes.stream().toList());
-            outputStream.writeObject(DataInterface.allQuestions.stream().toList());
+            outputStream.writeObject(DataRepository.allNotes.stream().toList());
+            outputStream.writeObject(DataRepository.allQuestions.stream().toList());
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -50,10 +48,10 @@ public class NotebookController {
             ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);
 
             List<Note> tmpList = (List<Note>)inputStream.readObject();
-            DataInterface.AddAllNotesFromList(tmpList);
+            DataRepository.AddAllNotesFromList(tmpList);
 
             List<Question> tmpQuestions = (List<Question>)inputStream.readObject();
-            DataInterface.AddAllQuestionsFromList(tmpQuestions);
+            DataRepository.AddAllQuestionsFromList(tmpQuestions);
             PathOfNoteBook = FilePath.getAbsoluteFile().toString();
 
         } catch (Exception e){
@@ -63,25 +61,25 @@ public class NotebookController {
     }
 
     public static void EncodeNoteBook(String password){
-        for (Note note: DataInterface.allNotes) {
+        for (Note note: DataRepository.allNotes) {
             note.setMainText(EncryptionHandler.encrypt(note.getMainText(),password));
             note.setTitle(EncryptionHandler.encrypt(note.getTitle(),password));
         }
 
-        for (Question question : DataInterface.allQuestions){
+        for (Question question : DataRepository.allQuestions){
             question.setQuestionText(EncryptionHandler.encrypt(question.getQuestionText(),password));
 
         }
     }
 
     public static void DecodeNoteBook(String password){
-        for(Note note : DataInterface.allNotes){
+        for(Note note : DataRepository.allNotes){
             note.setMainText(EncryptionHandler.decrypt(note.getMainText(),password));
             note.setTitle(EncryptionHandler.decrypt(note.getTitle(),password));
 
         }
 
-        for (Question question : DataInterface.allQuestions){
+        for (Question question : DataRepository.allQuestions){
             question.setQuestionText(EncryptionHandler.decrypt(question.getQuestionText(),password));
 
         }

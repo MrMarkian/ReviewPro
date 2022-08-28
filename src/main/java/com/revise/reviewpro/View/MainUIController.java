@@ -4,14 +4,11 @@ import com.revise.reviewpro.Data.Grading;
 import com.revise.reviewpro.Data.Note;
 import com.revise.reviewpro.Data.NotebookController;
 import com.revise.reviewpro.Data.Question;
-import com.revise.reviewpro.ReviewApp;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -21,14 +18,17 @@ import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Optional;
 
 import static com.revise.reviewpro.View.SceneHandler.SwitchScenes;
+import static com.revise.reviewpro.View.SceneHandler.SwtichViewPane;
 
 public class MainUIController extends Application {
+
+    public MenuItem BootstrapClicked;
     @FXML
     private ListView<Note> NoteList;
     @FXML
@@ -54,20 +54,27 @@ public class MainUIController extends Application {
     @FXML
     private SplitPane MainSplitPane;
 
-
-
     public MainUIController() {
-
     }
 
     @FXML
     void ShowNoteFromList(MouseEvent event) {}
 
     @FXML
+    void DarkThemeMenuClicked(ActionEvent event){
+        SceneHandler.SwitchThemes(ThemeStyle.Dark);
+    }
+    @FXML
+    void onBootstrapClicked(ActionEvent event){
+        SceneHandler.SwitchThemes(ThemeStyle.Light);
+    }
+
+    @FXML
     void CompleteClicked(ActionEvent event){}
 
     @FXML
-    void ClearListUIClick(ActionEvent event){DataInterface.allNotes.clear();}
+    void ClearListUIClick(ActionEvent event){
+        DataRepository.allNotes.clear();}
 
     @FXML
     void CloseMenuClicked(ActionEvent event){
@@ -76,8 +83,8 @@ public class MainUIController extends Application {
     @FXML
     void SaveButtonClicked(ActionEvent event) {
         System.out.println(GradingCombo.getValue());
-        DataInterface.allNotes.add(new Note(Grading.valueOf(GradingCombo.getValue().toString()),NoteEditor.getHtmlText(), reviewDateCalender.getValue(),TitleInput.getText()));
-        NoteList.setItems(DataInterface.allNotes);
+        DataRepository.allNotes.add(new Note(Grading.valueOf(GradingCombo.getValue().toString()),NoteEditor.getHtmlText(), reviewDateCalender.getValue(),TitleInput.getText()));
+        NoteList.setItems(DataRepository.allNotes);
     }
 
     @FXML
@@ -98,7 +105,7 @@ public class MainUIController extends Application {
         try {
             NotebookController.LoadNoteBook(file);
 
-            NoteList.setItems(DataInterface.allNotes);
+            NoteList.setItems(DataRepository.allNotes);
         }catch (Exception ex){
             Alert al = new Alert(Alert.AlertType.ERROR, "Unable to load Notebook, File Corruption or incompatible version");
             al.show();
@@ -163,7 +170,7 @@ public class MainUIController extends Application {
     @FXML
     private void initialize() {
         NoteList.getSelectionModel().selectedItemProperty().addListener((observableValue, note, t1) -> {
-            SwtichViewPane(FormWindows.NewNote,t1);
+            SwtichViewPane(FormWindows.NewNote,MainSplitPane,t1);
 
             TitleInput.setText(t1.getTitle());
             NoteEditor.setHtmlText(t1.getMainText());
@@ -184,67 +191,14 @@ public class MainUIController extends Application {
         WebView webview = (WebView) NoteEditor.lookup("WebView");
         GridPane.setHgrow(webview, Priority.ALWAYS);
         GridPane.setVgrow(webview, Priority.ALWAYS);
-        NoteList.setItems(DataInterface.allNotes);
+        NoteList.setItems(DataRepository.allNotes);
 
-        QuestionList.setItems(DataInterface.allQuestions);
-        QuestionList.getSelectionModel().selectedItemProperty().addListener((observableValue, question, t1) -> SwtichViewPane(FormWindows.Question,t1));
-
+        QuestionList.setItems(DataRepository.allQuestions);
+        QuestionList.getSelectionModel().selectedItemProperty().addListener((observableValue, question, t1) -> SwtichViewPane(FormWindows.Question,MainSplitPane,t1));
     }
 
-    public void SwtichViewPane(FormWindows window, Object passedObject)  {
-        switch (window){
-            case Question -> {
-                Node componentsPane;
-
-                try {
-                    componentsPane = MainSplitPane.getItems().get(1);
-                    MainSplitPane.getItems().remove(componentsPane);
-                    FXMLLoader fxmlLoader = new FXMLLoader(
-                            Objects.requireNonNull(ReviewApp.class.getResource("NewQuestion-View.fxml"))
-                    );
-
-
-                    AnchorPane anchorPane =  fxmlLoader.load();
-                    NewQuestionUIController newQuestionUIController = fxmlLoader.getController();
-                    newQuestionUIController.SetData((Question) passedObject);
-
-
-                   MainSplitPane.getItems().add(1, anchorPane);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            case NewNote -> {
-                Node componentsPane;
-                componentsPane = MainSplitPane.getItems().get(1);
-                MainSplitPane.getItems().remove(componentsPane);
-
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(
-                            Objects.requireNonNull(ReviewApp.class.getResource("NewNote-View.fxml"))
-                    );
-                    AnchorPane anchorPane =  fxmlLoader.load();
-                    NewNoteUIController newNoteUIController = fxmlLoader.getController();
-                    newNoteUIController.SetData((Note) passedObject);
-
-                    MainSplitPane.getItems().add(1, anchorPane);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-
-    }
 
     @Override
     public void start(Stage stage) {}
-
-
-
-
-
-
 
 }

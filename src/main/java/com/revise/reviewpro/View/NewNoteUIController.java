@@ -6,7 +6,6 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -78,7 +77,6 @@ public class NewNoteUIController extends Application {
 
     @Override
     public void start(Stage stage) {
-
     }
 
     @FXML
@@ -88,8 +86,7 @@ public class NewNoteUIController extends Application {
 
     @FXML
     public void SaveButtonClicked(ActionEvent event) throws IOException {
-            DataInterface.allNotes.add(new Note(Grading.AVERAGE,MainTextInputHTML.getHtmlText(),ReviewDateInput.getValue(),TitleTextInput.getText()));
+            DataRepository.allNotes.add(new Note(GradingCombo.getValue(),MainTextInputHTML.getHtmlText(),ReviewDateInput.getValue(),TitleTextInput.getText()));
             SceneHandler.SwitchScenes(FormWindows.Main);
     }
-
 }

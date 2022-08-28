@@ -4,11 +4,9 @@ import com.revise.reviewpro.Data.Note;
 import com.revise.reviewpro.Data.Question;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.io.Serializable;
 import java.util.List;
 
-public class DataInterface {
+public class DataRepository {
 
     public static final ObservableList<Note> allNotes = FXCollections.observableArrayList();
     public static final ObservableList<Question> allQuestions = FXCollections.observableArrayList();
